@@ -105,3 +105,8 @@
 svg {
   background: rgb(252, 234, 234)
 }
+
+.country {
+  fill: #ccc;
+  stroke: #999;
+}

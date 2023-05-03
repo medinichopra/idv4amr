@@ -1,9 +1,12 @@
+// use the useD3 hook
 import useD3 from './hooks/useD3';
 import React from 'react';
 import * as d3 from 'd3';
 
-function BarChart({ data }) {
-  const ref = useD3(
+function BarChart({data}) { // { data }takes the barchart data passed to it
+  //const {data: data} = useFetch("http://localhost:8000/bar/");
+
+  const ref = useD3( //use D3 first argument renders the chart, second argument is when it should be executed again
     (svg) => {
       const height = 500;
       const width = 500;

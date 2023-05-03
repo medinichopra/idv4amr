@@ -6,12 +6,17 @@ import BlogDetails from "./BlogDetails";
 import NotFound from "./NotFound";
 import BarChart from "./BarChart";
 import Circles from "./Circle";
+import DonutChart from "./DonutChart";
+// import CircularGroupedBarChart from "./CircularBarPlot";
+import WorldMap from "./WorldMap";
+import InteractiveBarChart from "./InteractiveBar";
+// import bar from "C:Users/medin/OneDrive/Desktop/idv4amr/idv4amr/frontend/data/bar.json"
 
 function App() {
     const data = [
         {year: 1980, efficiency: 24.3, sales: 8949000},
         {year: 1985, efficiency: 27.6, sales: 10979000},
-        {year: 1990, efficiency: 28, sales: 9303000},
+        {year: 1990, efficiency: 28,   sales:9303000},
         {year: 1991, efficiency: 28.4, sales: 8185000},
         {year: 1992, efficiency: 27.9, sales: 8213000},
         {year: 1993, efficiency: 28.4, sales: 8518000},
@@ -23,7 +28,7 @@ function App() {
         {year: 1999, efficiency: 28.3, sales: 8638000},
         {year: 2000, efficiency: 28.5, sales: 8778000},
         {year: 2001, efficiency: 28.8, sales: 8352000},
-        {year: 2002, efficiency: 29, sales: 8042000},
+        {year: 2002, efficiency: 29,   sales:8042000},
         {year: 2003, efficiency: 29.5, sales: 7556000},
         {year: 2004, efficiency: 29.5, sales: 7483000},
         {year: 2005, efficiency: 30.3, sales: 7660000},
@@ -38,9 +43,23 @@ function App() {
         {year: 2014, efficiency: 36.5, sales: 7708000},
         {year: 2015, efficiency: 37.2, sales: 7517000},
         {year: 2016, efficiency: 37.7, sales: 6873000},
-        {year: 2017, efficiency: 39.4, sales: 6081000},
+        {year: 2017, efficiency: 39.4, sales: 6081000}
       ]
 
+    const data_2 = [
+          { label: 'A', value: 10 },
+          { label: 'B', value: 20 },
+          { label: 'C', value: 30 },
+          { label: 'D', value: 40 },
+        ]
+    const data_3 = [
+        { name: 'A', value: 20 },
+        { name: 'B', value: 40 },
+        { name: 'C', value: 60 },
+        { name: 'D', value: 80 },
+        { name: 'E', value: 100 },
+    ];
+    
     return (
         <Router>
             <div className="App">
@@ -49,9 +68,26 @@ function App() {
                     <Switch>
                         <Route exact path="/">
                             <header className="App-header">
-                            <BarChart data={data}/>
-                            {/* <Scatter data={sales}/> */}
                             </header>
+                            <div style={{ display: 'flex' }}>
+                            <InteractiveBarChart data={data_3}/>
+                            <BarChart data={data}/>
+                            </div>                            
+                            <div>
+                            <h1>Donut Chart Example</h1>
+                            <DonutChart data={data_2} width={400} height={300} />
+                            </div> 
+                            <WorldMap/>
+                            {/* <h1>Circular Bar Plot Example</h1>
+                                <CircularBarPlot
+                                    data={data_3}
+                                    width={600}
+                                    height={600}
+                                    xLabel="Groups"
+                                    yLabel="Population"
+                                /> */}
+                            {/* <CircularGroupedBarChart /> */}
+
                             <Home />
                         </Route>
                         <Route exact path="/create">
