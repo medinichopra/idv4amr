@@ -18,7 +18,7 @@ const Circles = () => {
         .join("circle")
           .attr("cx", d => d[0])
           .attr("cy", d => d[1])
-          .attr("r",  3)
+          .attr("r",  1)
     }, [dataset])
   
     useInterval(() => {

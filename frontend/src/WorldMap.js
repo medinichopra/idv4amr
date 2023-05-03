@@ -12,7 +12,10 @@ const WorldMap = () => {
   useEffect(() => {
     const svg = d3.select(svgRef.current)
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", height)
+      .call(d3.zoom().on("zoom", (event) => {
+        g.attr("transform", event.transform);
+      }));
 
     const projection = d3.geoMercator().scale(120);
     const path = d3.geoPath(projection);
@@ -32,10 +35,13 @@ const WorldMap = () => {
             d3.select(this).style("fill", "blue");
           })
           .on("mouseout", function () {
-            d3.select(this).style("fill", "#ccc");
+            if (!d3.select(this).classed("selected")) {
+              d3.select(this).style("fill", "#ccc");
+            }
           })
           .on("click", function() {
-            d3.select(this).style("fill", "red");
+            d3.selectAll(".country").classed("selected", false);
+            d3.select(this).classed("selected", true).style("fill", "red");
           })
           ;
       }

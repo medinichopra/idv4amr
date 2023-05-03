@@ -10,9 +10,14 @@ import DonutChart from "./DonutChart";
 // import CircularGroupedBarChart from "./CircularBarPlot";
 import WorldMap from "./WorldMap";
 import InteractiveBarChart from "./InteractiveBar";
+import Scatterplot from "./InteractiveScatterPlot";
 // import bar from "C:Users/medin/OneDrive/Desktop/idv4amr/idv4amr/frontend/data/bar.json"
+import React, { useState } from 'react';
+import Scatter from "./scatters";
+
 
 function App() {
+
     const data = [
         {year: 1980, efficiency: 24.3, sales: 8949000},
         {year: 1985, efficiency: 27.6, sales: 10979000},
@@ -60,6 +65,14 @@ function App() {
         { name: 'E', value: 100 },
     ];
     
+    const data_4 = [
+            { x: 10, y: 20 },
+            { x: 20, y: 30 },
+            { x: 30, y: 40 },
+            { x: 40, y: 50 },
+            { x: 50, y: 60 },
+          ];
+            
     return (
         <Router>
             <div className="App">
@@ -69,24 +82,20 @@ function App() {
                         <Route exact path="/">
                             <header className="App-header">
                             </header>
-                            <div style={{ display: 'flex' }}>
+                            <div > 
+                            {/* style={{ display: 'flex' }} */}
+                            <Scatter></Scatter>
                             <InteractiveBarChart data={data_3}/>
-                            <BarChart data={data}/>
+                            {/* <BarChart data={data}/> */}
+                            <h1>Interactive Scatter Plot</h1>
+                            <button id="btn" onclick="setInterval()">Change Data</button>
+                            <Scatterplot data={data_4} />
                             </div>                            
                             <div>
                             <h1>Donut Chart Example</h1>
                             <DonutChart data={data_2} width={400} height={300} />
                             </div> 
                             <WorldMap/>
-                            {/* <h1>Circular Bar Plot Example</h1>
-                                <CircularBarPlot
-                                    data={data_3}
-                                    width={600}
-                                    height={600}
-                                    xLabel="Groups"
-                                    yLabel="Population"
-                                /> */}
-                            {/* <CircularGroupedBarChart /> */}
 
                             <Home />
                         </Route>

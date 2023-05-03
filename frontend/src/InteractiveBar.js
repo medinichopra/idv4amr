@@ -8,7 +8,7 @@ const InteractiveBarChart = ({ data }) => {
     const svg = d3.select(svgRef.current);
 
     // set chart dimensions and margins
-    const margin = { top: 20, right: 20, bottom: 50, left: 50 };
+    const margin = { top: 30, right: 20, bottom: 50, left: 50 };
     const width = +svg.attr('width') - margin.left - margin.right;
     const height = +svg.attr('height') - margin.top - margin.bottom;
 
@@ -19,7 +19,9 @@ const InteractiveBarChart = ({ data }) => {
       .domain(data.map((d) => d.name))
       .padding(0.2);
 
-    const y = d3.scaleLinear().range([height, 0]).domain([0, d3.max(data, (d) => d.value)]);
+    const y = d3.scaleLinear()
+    .range([height, 0])
+    .domain([0, d3.max(data, (d) => d.value)]);
 
     // create axes
     const xAxis = d3.axisBottom(x);
@@ -34,7 +36,8 @@ const InteractiveBarChart = ({ data }) => {
       .style('text-anchor', 'end')
       .attr('dx', '-0.8em')
       .attr('dy', '-0.15em')
-      .attr('transform', 'rotate(-65)');
+      // .attr('transform', 'rotate(-65)')
+      ;
 
     // append y axis
     svg
@@ -65,8 +68,8 @@ const InteractiveBarChart = ({ data }) => {
         svg
           .append('text')
           .attr('class', 'value')
-          .attr('x', x(d.name) + x.bandwidth() / 2)
-          .attr('y', y(d.value) - 10)
+          .attr('x', x(d.name) + x.bandwidth()*1.25)
+          .attr('y', y(d.value) + 12)
           .text(d.value)
           .attr('text-anchor', 'middle')
           .attr('font-size', '14px')

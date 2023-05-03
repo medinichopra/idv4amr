@@ -38,7 +38,22 @@ function DonutChart(props) {
 
     arcs.append('path')
       .attr('d', arcGenerator)
-      .attr('fill', d => colorScale(d.data.label));
+      .attr('fill', d => colorScale(d.data.label))
+      .on("mouseover", function() {
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .attr("d", d3.arc()
+            .innerRadius(radius * 0.5)
+            .outerRadius(radius * 0.9)
+          );
+      })
+      .on("mouseout", function() {
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .attr("d", arcGenerator);
+      });
 
     // Draw the labels
     arcs.append('text')

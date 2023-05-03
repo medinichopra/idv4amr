@@ -3,28 +3,31 @@ import useD3 from './hooks/useD3';
 import React from 'react';
 import * as d3 from 'd3';
 
-function BarChart({data}) { // { data }takes the barchart data passed to it
+function BarChart({data}) {
   //const {data: data} = useFetch("http://localhost:8000/bar/");
 
   const ref = useD3( //use D3 first argument renders the chart, second argument is when it should be executed again
     (svg) => {
       const height = 500;
       const width = 500;
-      const margin = { top: 20, right: 30, bottom: 30, left: 40 };
+      const margin = { top: 20, right: 20, bottom: 50, left: 50 };
 
       const x = d3
         .scaleBand()
         .domain(data.map((d) => d.year))
-        .rangeRound([margin.left, width - margin.right])
-        .padding(0.1);
+        .range([0,width])
+        // .rangeRound([margin.left, width - margin.right])
+        .padding(0.2);
 
       const y1 = d3
         .scaleLinear()
         .domain([0, d3.max(data, (d) => d.sales)])
-        .rangeRound([height - margin.bottom, margin.top]);
+        .nice()
+        .range([height, 0])
+        //.rangeRound([height - margin.bottom, margin.top]);
 
       const xAxis = (g) =>
-        g.attr("transform", `translate(0,${height - margin.bottom})`).call(
+        g.attr("transform", `translate(${margin.left}, ${height + margin.top})`).call( //0,height - margin.bottom
           d3
             .axisBottom(x)
             .tickValues(
@@ -37,14 +40,14 @@ function BarChart({data}) { // { data }takes the barchart data passed to it
 
       const y1Axis = (g) =>
         g
-          .attr("transform", `translate(${margin.left},0)`)
+          .attr("transform", `translate(${margin.left}, ${margin.top})`) //${margin.left},0
           .style("color", "steelblue")
           .call(d3.axisLeft(y1).ticks(null, "s"))
           .call((g) => g.select(".domain").remove())
           .call((g) =>
             g
               .append("text")
-              .attr("x", -margin.left)
+              .attr("x", 0) //-margin.left
               .attr("y", 10)
               .attr("fill", "currentColor")
               .attr("text-anchor", "start")
@@ -75,8 +78,8 @@ function BarChart({data}) { // { data }takes the barchart data passed to it
       style={{
         height: 500,
         width: "100%",
-        marginRight: "0px",
-        marginLeft: "0px",
+        // marginRight: "0px",
+        // marginLeft: "0px",
       }}
     >
       <g className="plot-area" />
