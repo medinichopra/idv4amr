@@ -53,10 +53,12 @@ function App() {
       ]
 
     const data_2 = [
-          { label: 'A', value: 10 },
-          { label: 'B', value: 20 },
-          { label: 'C', value: 30 },
-          { label: 'D', value: 40 },
+          { label: 'PEN', value: 10 },
+          { label: 'OXA', value: 20 },
+          { label: 'FLC', value: 30 },
+          { label: 'CXM', value: 40 },
+          { label: 'AMX', value: 40 },
+          { label: 'AMC', value: 40 }
         ]
     const data_3 = [
         { name: 'A', value: 20, value2: 30, value3: 40  },
@@ -74,11 +76,11 @@ function App() {
           ];
             
     const data_5 = [
-        { category: "PEN", value1: 5, value2: 20, value3: 30, total: 80 },
-        { category: "OXA", value1: 20, value2: 15, value3: 10, total: 80 },
-        { category: "FLC", value1: 30, value2: 10, value3: 20, total: 80 },
-        { category: "AMX", value1: 10, value2: 5, value3: 10, total: 80 },
-        { category: "CXM", value1: 40, value2: 10, value3: 10, total: 80 }
+        { category: "PEN", R: 5,  S: 20, I: 30, total: 80 },
+        { category: "OXA", R: 20, S: 15, I: 10, total: 80 },
+        { category: "FLC", R: 30, S: 10, I: 20, total: 80 },
+        { category: "AMX", R: 10, S: 5,  I: 10, total: 80 },
+        { category: "CXM", R: 40, S: 10, I: 10, total: 80 }
     ];
 
     return (
@@ -94,12 +96,12 @@ function App() {
                             {/* style={{ display: 'flex' }} */}
                             <h1>E.Coli</h1>
                             <StackedBarChart data={data_5}/>
-                            <Scatter></Scatter>
                             <InteractiveBarChart data={data_3}/>
                             {/* <BarChart data={data}/> */}
                             <h1>Interactive Scatter Plot</h1>
                             {/* <button id="btn" onclick="setInterval()">Change Data</button> */}
                             <InteractiveScatterPlot data={data_4} />
+                            <Scatter></Scatter>
                             </div>                            
                             <div>
                             <h1>% of R to E.Coli</h1>

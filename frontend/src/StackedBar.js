@@ -27,7 +27,7 @@ const StackedBarChart = ({ data }) => {
     const bars = g
     // .append('g')
       .selectAll('g')
-      .data(d3.stack().keys(['value1', 'value2', 'value3'])(data))
+      .data(d3.stack().keys(['R', 'S', 'I'])(data))
       .enter().append('g')
       .attr('fill', d => z(d.key))
       .selectAll('rect')
