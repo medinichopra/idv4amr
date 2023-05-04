@@ -16,8 +16,9 @@ function DonutChart(props) {
 
     // Set up the color scale
     const colorScale = d3.scaleOrdinal()
-      .domain(data.map(d => d.label))
-      .range(d3.schemeSet3);
+    .domain(data.map(d => d.label))
+    // .range(d3.range(data.length).map(d3.interpolateViridis));
+    .range(d3.schemeSet3);
 
     // Set up the arc generator
     const arcGenerator = d3.arc()

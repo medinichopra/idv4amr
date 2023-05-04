@@ -10,7 +10,7 @@ import DonutChart from "./DonutChart";
 // import CircularGroupedBarChart from "./CircularBarPlot";
 import WorldMap from "./WorldMap";
 import InteractiveBarChart from "./InteractiveBar";
-import InteractiveScatterPlot from "./InteractiveScatterPlot";
+import ScatterPlot from "./InteractiveScatterPlot";
 // import bar from "C:Users/medin/OneDrive/Desktop/idv4amr/idv4amr/frontend/data/bar.json"
 import React, { useState } from 'react';
 import Scatter from "./scatters";
@@ -96,12 +96,12 @@ function App() {
                             {/* style={{ display: 'flex' }} */}
                             <h1>E.Coli</h1>
                             <StackedBarChart data={data_5}/>
-                            <InteractiveBarChart data={data_3}/>
+                            {/* <InteractiveBarChart data={data_3}/> */}
                             {/* <BarChart data={data}/> */}
                             <h1>Interactive Scatter Plot</h1>
                             {/* <button id="btn" onclick="setInterval()">Change Data</button> */}
-                            <InteractiveScatterPlot data={data_4} />
-                            <Scatter></Scatter>
+                            <ScatterPlot data={data_4} />
+                            {/* <Scatter></Scatter> */}
                             </div>                            
                             <div>
                             <h1>% of R to E.Coli</h1>
