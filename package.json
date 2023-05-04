@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "json-server": "json-server data.json --watch --port 4200"
   },
   "repository": {
     "type": "git",

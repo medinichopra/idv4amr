@@ -1,0 +1,7 @@
+{
+    "env": {
+        "mongoDatabase": "AMRdata",
+        "mongoUserName": "bhavikapadiaasp23",
+        "mongoUserPassword": "IDV4AMRAU"
+    }
+}

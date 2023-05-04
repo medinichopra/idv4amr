@@ -17,9 +17,6 @@ const RootQuery = new GraphQLObjectType({
         }
     }
 })
-
-// const RootMutation
-
 module.exports = new GraphQLSchema({
     query: RootQuery,
     // mutation: RootMutation
