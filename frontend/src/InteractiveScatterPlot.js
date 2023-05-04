@@ -1,3 +1,50 @@
+import React, { useRef, useEffect, useState } from 'react';
+import * as d3 from 'd3';
+
+const InteractiveScatterPlot = ({ data }) => {
+  const svgRef = useRef(null);
+  const [toggleValue, setToggleValue] = useState(1);
+
+  useEffect(() => {
+    const svg = d3.select(svgRef.current);
+
+    // Create scale for scatterplot
+    const xScale = d3.scaleLinear()
+      .domain([0, d3.max(data, d => d.x)])
+      .range([0, 500]);
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(data, d => d.y)])
+      .range([500, 0]);
+    const rScale = d3.scaleLinear()
+      .domain([0, d3.max(data, d => d.r)])
+      .range([2, 10]);
+
+    // Render scatterplot
+    svg.selectAll("circle")
+      .data(data)
+      .join("circle")
+      .attr("cx", d => xScale(d.x))
+      .attr("cy", d => yScale(d.y))
+      .attr("r", d => rScale(d.r));
+
+  }, [data, toggleValue]);
+
+  // Event handler for drag toggle
+  const handleToggleChange = (event) => {
+    const value = event.target.value;
+    setToggleValue(value);
+  };
+
+  return (
+  <>
+    <input type="range" min="1" max="10" value={toggleValue} onChange={handleToggleChange} />
+    <svg ref={svgRef} width="500" height="500"></svg>
+  </>
+);
+};
+
+export default InteractiveScatterPlot;
+
 // import React, { useRef, useEffect, useState } from 'react';
 // import * as d3 from 'd3';
 
@@ -262,129 +309,129 @@
     
 //   export default ScatterPlot;
 
-import React, { useState, useRef, useEffect } from 'react';
-import * as d3 from 'd3';
+// import React, { useState, useRef, useEffect } from 'react';
+// import * as d3 from 'd3';
 
-const ScatterPlot = ({ data }) => {
-  const svgRef = useRef();
-  const [toggle, setToggle] = useState(false);
+// const ScatterPlot = ({ data }) => {
+//   const svgRef = useRef();
+//   const [toggle, setToggle] = useState(false);
 
-  const handleToggle = () => {
-    setToggle(!toggle);
-  };
+//   const handleToggle = () => {
+//     setToggle(!toggle);
+//   };
 
-  useEffect(() => {
-    const margin = { top: 20, right: 20, bottom: 70, left: 70 };
-    const width = 500 - margin.left - margin.right;
-    const height = 500 - margin.top - margin.bottom;
+//   useEffect(() => {
+//     const margin = { top: 20, right: 20, bottom: 70, left: 70 };
+//     const width = 500 - margin.left - margin.right;
+//     const height = 500 - margin.top - margin.bottom;
 
-    const svg = d3.select(svgRef.current)
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
+//     const svg = d3.select(svgRef.current)
+//       .attr('width', width + margin.left + margin.right)
+//       .attr('height', height + margin.top + margin.bottom)
+//       .append('g')
+//       .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    const xScale = d3.scaleLinear()
-      .domain([d3.min(data, d => d.x) - 1, d3.max(data, d => d.x) + 1])
-      .range([0, width]);
+//     const xScale = d3.scaleLinear()
+//       .domain([d3.min(data, d => d.x) - 1, d3.max(data, d => d.x) + 1])
+//       .range([0, width]);
 
-    const yScale = d3.scaleLinear()
-      .domain([d3.min(data, d => d.y) - 1, d3.max(data, d => d.y) + 1])
-      .range([height, 0]);
+//     const yScale = d3.scaleLinear()
+//       .domain([d3.min(data, d => d.y) - 1, d3.max(data, d => d.y) + 1])
+//       .range([height, 0]);
 
-    const xAxis = d3.axisBottom(xScale);
-    const yAxis = d3.axisLeft(yScale);
+//     const xAxis = d3.axisBottom(xScale);
+//     const yAxis = d3.axisLeft(yScale);
 
-    svg.append('g')
-      .attr('transform', `translate(0, ${height})`)
-      .call(xAxis);
+//     svg.append('g')
+//       .attr('transform', `translate(0, ${height})`)
+//       .call(xAxis);
 
-    svg.append('g')
-      .call(yAxis);
+//     svg.append('g')
+//       .call(yAxis);
 
-    const circle = svg.selectAll('.circle')
-      .data(data)
-      .enter()
-      .append('circle')
-      .attr('class', 'circle')
-      .attr('cx', d => xScale(d.x))
-      .attr('cy', d => yScale(d.y))
-      .attr('r', 5)
-      .attr('fill', 'steelblue')
-      .on('mouseover', (event, d) => {
-        d3.select(event.target)
-          .transition()
-          .duration(100)
-          .attr('r', 8);
+//     const circle = svg.selectAll('.circle')
+//       .data(data)
+//       .enter()
+//       .append('circle')
+//       .attr('class', 'circle')
+//       .attr('cx', d => xScale(d.x))
+//       .attr('cy', d => yScale(d.y))
+//       .attr('r', 5)
+//       .attr('fill', 'steelblue')
+//       .on('mouseover', (event, d) => {
+//         d3.select(event.target)
+//           .transition()
+//           .duration(100)
+//           .attr('r', 8);
 
-        const tooltip = svg.append('text')
-          .attr('class', 'tooltip')
-          .text(`(${d.x}, ${d.y})`)
-          .attr('x', xScale(d.x) + 10)
-          .attr('y', yScale(d.y) - 10);
-      })
-      .on('mouseout', (event, d) => {
-        d3.select(event.target)
-          .transition()
-          .duration(200)
-          .attr('r', 5);
+//         const tooltip = svg.append('text')
+//           .attr('class', 'tooltip')
+//           .text(`(${d.x}, ${d.y})`)
+//           .attr('x', xScale(d.x) + 10)
+//           .attr('y', yScale(d.y) - 10);
+//       })
+//       .on('mouseout', (event, d) => {
+//         d3.select(event.target)
+//           .transition()
+//           .duration(200)
+//           .attr('r', 5);
 
-        svg.selectAll('.tooltip').remove();
-      });
+//         svg.selectAll('.tooltip').remove();
+//       });
 
-    const interval = setInterval(() => {
-      const newData = data.map(d => ({
-        ...d,
-        y: toggle ? (Math.floor(Math.random() * 2) + 1) : d.y
-      }));
+//     const interval = setInterval(() => {
+//       const newData = data.map(d => ({
+//         ...d,
+//         y: toggle ? (Math.floor(Math.random() * 2) + 1) : d.y
+//       }));
 
-      const newCircle = svg.selectAll('.circle')
-        .data(newData);
+//       const newCircle = svg.selectAll('.circle')
+//         .data(newData);
 
-      newCircle.enter()
-        .append('circle')
-        .merge(newCircle)
-        .transition()
-        .duration(1000)
-        .attr('cx', d => xScale(d.x))
-        // .attr('cy', d => yScale(d.y));
-        .attr('cy', d => yScale(Math.floor(Math.random() * (d3.max(data, d => d.y) - d3.min(data, d => d.y) + 1) + d3.min(data, d => d.y))))
-        .on('mouseover', (event, d) => {
-          d3.select(event.target)
-            .transition()
-            .duration(100)
-            .attr('r', 8);
+//       newCircle.enter()
+//         .append('circle')
+//         .merge(newCircle)
+//         .transition()
+//         .duration(1000)
+//         .attr('cx', d => xScale(d.x))
+//         // .attr('cy', d => yScale(d.y));
+//         .attr('cy', d => yScale(Math.floor(Math.random() * (d3.max(data, d => d.y) - d3.min(data, d => d.y) + 1) + d3.min(data, d => d.y))))
+//         .on('mouseover', (event, d) => {
+//           d3.select(event.target)
+//             .transition()
+//             .duration(100)
+//             .attr('r', 8);
   
-          const tooltip = svg.append('text')
-            .attr('class', 'tooltip')
-            .text(`(${d.x}, ${Math.floor(Math.random() * (d3.max(data, d => d.y) - d3.min(data, d => d.y) + 1) + d3.min(data, d => d.y))})`)
-            .attr('x', xScale(d.x) + 10)
-            .attr('y', yScale(Math.floor(Math.random() * (d3.max(data, d => d.y) - d3.min(data, d => d.y) + 1) + d3.min(data, d => d.y))) - 10);
-        })
-        .on('mouseout', (event, d) => {
-          d3.select(event.target)
-            .transition()
-            .duration(200)
-            .attr('r', 5);
+//           const tooltip = svg.append('text')
+//             .attr('class', 'tooltip')
+//             .text(`(${d.x}, ${Math.floor(Math.random() * (d3.max(data, d => d.y) - d3.min(data, d => d.y) + 1) + d3.min(data, d => d.y))})`)
+//             .attr('x', xScale(d.x) + 10)
+//             .attr('y', yScale(Math.floor(Math.random() * (d3.max(data, d => d.y) - d3.min(data, d => d.y) + 1) + d3.min(data, d => d.y))) - 10);
+//         })
+//         .on('mouseout', (event, d) => {
+//           d3.select(event.target)
+//             .transition()
+//             .duration(200)
+//             .attr('r', 5);
   
-          svg.selectAll('.tooltip').remove();
-        });
-      newCircle.exit().remove();
-    }, setToggle);
+//           svg.selectAll('.tooltip').remove();
+//         });
+//       newCircle.exit().remove();
+//     }, setToggle);
 
-    return () => clearInterval(interval);
-  }, [data]);
+//     return () => clearInterval(interval);
+//   }, [data]);
 
-  return (
-    <>
-    <svg ref={svgRef}></svg>
-    <button onClick={handleToggle}>Toggle Y-Coordinate</button>
-    </>
+//   return (
+//     <>
+//     <svg ref={svgRef}></svg>
+//     <button onClick={handleToggle}>Toggle Y-Coordinate</button>
+//     </>
     
-  );
-}
+//   );
+// }
 
-export default ScatterPlot;
+// export default ScatterPlot;
 
 
 // // // // import React, { useRef, useEffect } from 'react';

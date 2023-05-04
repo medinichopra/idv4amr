@@ -10,10 +10,11 @@ import DonutChart from "./DonutChart";
 // import CircularGroupedBarChart from "./CircularBarPlot";
 import WorldMap from "./WorldMap";
 import InteractiveBarChart from "./InteractiveBar";
-import Scatterplot from "./InteractiveScatterPlot";
+import InteractiveScatterPlot from "./InteractiveScatterPlot";
 // import bar from "C:Users/medin/OneDrive/Desktop/idv4amr/idv4amr/frontend/data/bar.json"
 import React, { useState } from 'react';
 import Scatter from "./scatters";
+import StackedBarChart from "./StackedBar";
 
 
 function App() {
@@ -58,13 +59,12 @@ function App() {
           { label: 'D', value: 40 },
         ]
     const data_3 = [
-        { name: 'A', value: 20 },
-        { name: 'B', value: 40 },
-        { name: 'C', value: 60 },
-        { name: 'D', value: 80 },
-        { name: 'E', value: 100 },
-    ];
-    
+        { name: 'A', value: 20, value2: 30, value3: 40  },
+        { name: 'B', value: 40, value2: 60, value3: 80  },
+        { name: 'C', value: 60, value2: 10, value3: 20  },
+        { name: 'D', value: 80, value2: 30, value3: 50  },
+        { name: 'E', value: 100, value2: 70, value3: 20  }
+    ]    
     const data_4 = [
             { x: 10, y: 20 },
             { x: 20, y: 30 },
@@ -73,6 +73,14 @@ function App() {
             { x: 50, y: 60 },
           ];
             
+    const data_5 = [
+        { category: "PEN", value1: 5, value2: 20, value3: 30, total: 80 },
+        { category: "OXA", value1: 20, value2: 15, value3: 10, total: 80 },
+        { category: "FLC", value1: 30, value2: 10, value3: 20, total: 80 },
+        { category: "AMX", value1: 10, value2: 5, value3: 10, total: 80 },
+        { category: "CXM", value1: 40, value2: 10, value3: 10, total: 80 }
+    ];
+
     return (
         <Router>
             <div className="App">
@@ -84,15 +92,17 @@ function App() {
                             </header>
                             <div > 
                             {/* style={{ display: 'flex' }} */}
+                            <h1>E.Coli</h1>
+                            <StackedBarChart data={data_5}/>
                             <Scatter></Scatter>
                             <InteractiveBarChart data={data_3}/>
                             {/* <BarChart data={data}/> */}
                             <h1>Interactive Scatter Plot</h1>
-                            <button id="btn" onclick="setInterval()">Change Data</button>
-                            <Scatterplot data={data_4} />
+                            {/* <button id="btn" onclick="setInterval()">Change Data</button> */}
+                            <InteractiveScatterPlot data={data_4} />
                             </div>                            
                             <div>
-                            <h1>Donut Chart Example</h1>
+                            <h1>% of R to E.Coli</h1>
                             <DonutChart data={data_2} width={400} height={300} />
                             </div> 
                             <WorldMap/>

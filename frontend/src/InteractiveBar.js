@@ -21,7 +21,7 @@ const InteractiveBarChart = ({ data }) => {
 
     const y = d3.scaleLinear()
     .range([height, 0])
-    .domain([0, d3.max(data, (d) => d.value)]);
+    .domain([0, d3.max(data, (d) => d.value + d.value2 + d.value3)]);
 
     // create axes
     const xAxis = d3.axisBottom(x);
@@ -49,15 +49,28 @@ const InteractiveBarChart = ({ data }) => {
     svg
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
-      .selectAll('rect')
+      .selectAll('g')
       .data(data)
       .enter()
+      .append('g')
+      .attr('transform', (d) => `translate(${x(d.name)}, 0)`)
+      .selectAll('rect')
+      .data((d) => [
+        {name: 'value1', value: d.value1},
+        {name: 'value2', value: d.value2},
+        {name: 'value3', value: d.value3}
+      ])
+      .enter()
       .append('rect')
-      .attr('x', (d) => x(d.name))
+      .attr('x', 0)
       .attr('y', (d) => y(d.value))
       .attr('width', x.bandwidth())
       .attr('height', (d) => height - y(d.value))
-      .attr('fill', 'steelblue')
+      .attr('fill', (d) => {
+        if (d.name === 'value1') return 'steelblue';
+        if (d.name === 'value2') return 'orange';
+        if (d.name === 'value3') return 'green';
+      })
       .on('mouseover', function (event, d) {
         // show value on hover
         d3.select(this)
@@ -80,7 +93,18 @@ const InteractiveBarChart = ({ data }) => {
         d3.select(this)
           .transition()
           .duration(100)
-          .attr('fill', 'steelblue');
+          .attr('fill', (d) => {
+            switch (d.category) {
+              case 'A':
+                return 'steelblue';
+              case 'B':
+                return 'orange';
+              case 'C':
+                return 'green';
+              default:
+                return 'black';
+            }
+          });
 
         svg.selectAll('.value').remove();
       });
