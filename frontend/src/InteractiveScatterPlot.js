@@ -10,6 +10,7 @@ function ScatterPlot() {
     { x: 'H', y: 50 },
   ]);
   const [isToggled, setIsToggled] = useState(false);
+  const [text, setText] = useState("Male");
 
   const svgRef = useRef(null);
 
@@ -50,8 +51,16 @@ function ScatterPlot() {
         return y(d.y) + margin.top; // - margin.left
       })
       .attr("r", 5)
-      .style("fill", "red");
-  }, [data]);
+      .style("fill", "red")
+      // Add the text
+      // svg
+      // .append("text")
+      // .attr("x", width + margin.right - 50)
+      // .attr("y", margin.top)
+      // .style("text-anchor", "middle")
+      // .style("font-size", "20px")
+      // .text(text);
+  }, [data, text]);
 
   // Define the function to toggle the scatter plot
   function togglePlot() {
@@ -63,6 +72,7 @@ function ScatterPlot() {
         { x: 'G', y: 30 },
         { x: 'H', y: 50 },
       ]);
+      setText("Male");
     } else {
       setData([
         { x: 'E.Coli', y: 15 },
@@ -71,9 +81,12 @@ function ScatterPlot() {
         { x: 'G', y: 50 },
         { x: 'H', y: 60 },
       ]);
+      setText("Female");
     }
     setIsToggled(!isToggled);
   }
+
+  // text = isToggled ? "Female" : "Male";
 
   // Use D3 to update the points on the scatter plot
   useEffect(() => {
@@ -98,6 +111,8 @@ function ScatterPlot() {
 
   return (
     <div>
+      <h1>Count of E.Coli Patients: {text}</h1>
+      {/* <div style={{ float: "middle" }}>{text}</div> */}
       <svg ref={svgRef} width={400} height={400} />
       <button onClick={togglePlot}>
         {isToggled ? "Show Original" : "Show Updated"}

@@ -98,7 +98,6 @@ function App() {
                             <StackedBarChart data={data_5}/>
                             {/* <InteractiveBarChart data={data_3}/> */}
                             {/* <BarChart data={data}/> */}
-                            <h1>Interactive Scatter Plot</h1>
                             {/* <button id="btn" onclick="setInterval()">Change Data</button> */}
                             <ScatterPlot data={data_4} />
                             {/* <Scatter></Scatter> */}
